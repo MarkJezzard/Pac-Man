@@ -1578,8 +1578,12 @@ class Game:
 
         # check ghost collision with pacman
         for ghost in self.ghosts:
-            # if ghost and pacman share tile
-            if ghost.get_row() == self.pacman.get_row() and ghost.get_column() == self.pacman.get_column():
+            # if ghost and pacman share tile (or their centres are 1 pixel away from each other)
+            if (ghost.get_row() == self.pacman.get_row() and ghost.get_column() == self.pacman.get_column()) \
+                    or \
+                    (ghost.get_row() == self.pacman.get_row() and abs(ghost.x - self.pacman.x) == 1) \
+                    or \
+                    (ghost.get_column() == self.pacman.get_column() and abs(ghost.y - self.pacman.y) == 1):
                 if ghost.mode == 'SCATTER' or ghost.mode == 'CHASE':
                     self.pacman_dead = True
                     self.count = 1
